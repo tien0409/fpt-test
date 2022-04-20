@@ -1,0 +1,79 @@
+@import "../../assets/scss/variables";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .totalResult {
+    color: $support;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+  }
+
+  .paginationContainer {
+    display: flex;
+    align-items: center;
+
+    .paginationGroup {
+      display: flex;
+      align-items: center;
+      margin-right: 24px;
+
+      .next, .prev, .pageNumber {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .next {
+        margin-left: 13px;
+      }
+
+      .prev {
+        margin-right: 13px;
+      }
+
+      .pageNumber {
+        font-size: 1.3rem;
+        line-height: 1.95rem;
+        font-weight: 700;
+        color: $dark-500;
+        cursor: pointer;
+
+        &.active {
+          color: $white;
+          background-color: $linear;
+          border-radius: 7px;
+        }
+      }
+    }
+
+    .paginationOption {
+      display: flex;
+      align-items: center;
+
+      .paginationSelect {
+        min-width: 44px;
+        border: none;
+        padding: 0;
+        margin-right: 8px;
+
+        select {
+          margin-top: 0;
+          color: $dark-500;
+        }
+      }
+
+      span {
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+      }
+    }
+  }
+}
+

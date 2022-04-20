@@ -1,0 +1,98 @@
+@import '../../assets/scss/variables';
+
+$heightSection: 4.8rem;
+
+.title {
+  color: $gray-1;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.7rem;
+}
+
+.btnGroup {
+  margin-top: 27px;
+
+  button {
+    width: 133px;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    background-color: $bg-color;
+
+    &:first-child {
+      margin-right: 26px;
+    }
+  }
+}
+
+.searchContainer {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+
+  .searchGroup {
+    grid-column: span 8 / span 8;
+    display: flex;
+    align-items: center;
+
+    .searchInputGroup {
+      flex: 1;
+      margin-right: 23px;
+      position: relative;
+
+      i {
+        position: absolute;
+        top: 50%;
+        left: 23px;
+        transform: translateY(-50%);
+        color: $linear;
+        font-size: 1.8rem;
+      }
+
+      input, input::placeholder{
+        width: 100%;
+        height: $heightSection;
+        outline: none;
+        border-radius: 4px;
+        color: $dark-200;
+        font-size: 1.4rem;
+        line-height: 2.1rem;
+        border: none;
+      }
+
+      input {
+        padding-left: 59px;
+      }
+    }
+
+    button {
+      height: $heightSection;
+      width: 11.6rem;
+      padding: 0;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        margin-right: 9px;
+      }
+    }
+  }
+
+  .excelContainer {
+    grid-column: span 4 / span 4;
+    text-align: right;
+
+    button {
+      background-color: #fff;
+      color: $linear;
+      font-weight: 500;
+      padding: 12px 15px 12px 20px;
+      box-shadow: 0px 0px 10px #EEEEEE;
+      border-radius: 4px;
+    }
+  }
+}
+

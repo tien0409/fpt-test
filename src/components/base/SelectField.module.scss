@@ -1,0 +1,26 @@
+@import "../../assets/scss/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 18px;
+  border-bottom: 1px solid $xam-nhat;
+
+  .label {
+    color: $xam-dam;
+    font-size: 1.2rem;
+  }
+
+  .select {
+    margin-top: 10px;
+    display: block;
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: #fff;
+    color: $xam-nhat;
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+}

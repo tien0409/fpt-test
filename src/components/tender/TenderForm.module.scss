@@ -1,0 +1,17 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 33px;
+
+  .inputGroup {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 65px;
+    row-gap: 33px;
+
+    .input {
+      height: 6.2rem;
+      width: 25rem;
+    }
+  }
+}

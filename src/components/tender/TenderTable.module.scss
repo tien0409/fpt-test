@@ -1,0 +1,69 @@
+@import "../../assets/scss/variables";
+
+.container {
+  width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+
+  .wrapper {
+    display: inline-block;
+    min-width: 100%;
+
+    .table {
+      th,
+      td {
+        &:first-child {
+          padding-left: 68px;
+        }
+        &:last-child {
+          padding-right: 55px;
+        }
+      }
+
+      .row {
+        height: 8.8rem;
+        margin-bottom: 2px;
+
+        .columnValue {
+          color: $gray-1;
+          font-size: 1.3rem;
+          font-weight: 500;
+
+          &.id,
+          &.proposalCode {
+            color: $linear;
+            font-weight: 700;
+          }
+
+          &.id {
+            text-decoration: underline;
+          }
+
+          &.proposalCode {
+            line-height: 1.8rem;
+          }
+
+          &.expiredAt {
+            color: #1c1d21;
+          }
+        }
+
+        .columnLabel {
+          color: $xam-nhat;
+          font-size: 1.3rem;
+          font-weight: 500;
+          margin-top: 5px;
+
+          &.proposalCode,
+          &.expiredAt {
+            color: #8181a5;
+          }
+        }
+
+        .iconBtn {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
