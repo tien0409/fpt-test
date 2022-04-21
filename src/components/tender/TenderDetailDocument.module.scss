@@ -1,0 +1,158 @@
+@import "../../assets/scss/variables";
+
+.container {
+  padding: 20px 28px;
+
+  .checkbox {
+    border: none;
+    padding: 0;
+  }
+
+  .selectHeadWrapper {
+    border-bottom: 1px solid #f2f4f6;
+
+    select {
+      width: 24.9rem;
+    }
+  }
+
+  .main {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .tabsSection {
+    margin-top: 64px;
+    flex-basis: 300px;
+    text-align: center;
+
+    .tab {
+      display: flex;
+      align-items: center;
+      gap: 21px;
+      padding: 25px 16px;
+      cursor: pointer;
+
+      &.active {
+        background-color: #d8d8d8;
+      }
+
+      .tabImage {
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+      }
+
+      .tabInfo {
+        text-align: left;
+
+        .name {
+          color: $gray-2;
+          font-size: 1.3rem;
+          font-weight: 700;
+        }
+
+        .id {
+          color: $linear;
+          font-size: 1.1rem;
+          line-height: 1.8rem;
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+
+  .tableSection {
+    overflow-x: auto;
+    flex: 1;
+
+    .selectWrapper {
+      border: none;
+      padding: 0;
+      display: inline-block;
+
+      select {
+        width: 100%;
+        height: 3rem;
+        font-weight: 700;
+        font-size: 1.3rem;
+        color: $xam-dam;
+      }
+
+      &.dark {
+        select {
+          color: $black;
+        }
+      }
+    }
+
+    .table {
+      margin-top: 10px;
+
+      th,
+      td {
+        min-width: 10rem;
+      }
+
+      .idColumn,
+      .documentNameColumn,
+      .fileColumn,
+      .filingColumn {
+        font-size: 1.3rem;
+        color: $gray-1;
+      }
+
+      .idColumn {
+        min-width: 5rem;
+      }
+
+      .requiredColumn {
+        text-align: center;
+        min-width: 15rem;
+      }
+
+      .fileColumn {
+        text-align: center;
+      }
+
+      .filingColumn {
+        width: 10rem;
+      }
+    }
+
+    .documentTextGroup {
+      .documentText {
+        color: $black;
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-top: 10px;
+        margin-left: 3px;
+      }
+    }
+  }
+
+  .biddingDocument {
+    margin-top: 120px;
+
+    .table {
+      margin-top: 10px;
+
+      th,
+      td {
+        min-width: 12rem !important;
+      }
+
+      .row,
+      td {
+        padding: 12px 0;
+        font-size: 1.3rem;
+        color: $gray-1;
+      }
+
+      .fileColumn, .publicColumn {
+        text-align: center;
+      }
+    }
+  }
+}

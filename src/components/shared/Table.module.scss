@@ -1,0 +1,31 @@
+@import "../../assets/scss/variables";
+
+.container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  box-sizing: border-box;
+
+  .wrapper {
+    display: inline-block;
+    min-width: 100%;
+
+    table {
+      width: 100%;
+      height: 100%;
+
+      th {
+        background-color: rgba(245, 245, 250, 0.4);
+        color: $gray-1;
+        font-weight: 700;
+        font-size: 1.3rem;
+        height: 4.8rem;
+        text-align: left;
+      }
+
+      th, td {
+        min-width: 5rem;
+      }
+    }
+  }
+}

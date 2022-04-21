@@ -1,0 +1,75 @@
+@import "../../assets/scss/variables";
+
+$distanceTwoStep: 7rem;
+$borderWidthParent: 2px;
+$circleParentSize: 1.6rem;
+
+.container {
+  display: flex;
+  gap: 15px;
+
+  .circleWrapper {
+    .circleParent {
+      &:not(:first-child) {
+        margin-top: $distanceTwoStep;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 50%;
+          height: $distanceTwoStep;
+          width: 0.2rem;
+          background-color: $support-1;
+          transform: translate(-50%, calc(-100% - $borderWidthParent));
+        }
+      }
+
+      border-radius: 50%;
+      border: $borderWidthParent solid $linear;
+      width: $circleParentSize;
+      height: $circleParentSize;
+      background-color: $white;
+      position: relative;
+
+      .circleChild {
+        width: 0.8rem;
+        height: 0.8rem;
+        border-radius: 50%;
+        background-color: $linear;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  .detailWrapper {
+    flex: 1;
+
+    .detailItem {
+      height: calc($distanceTwoStep + $circleParentSize);
+      overflow-y: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+
+      .title {
+        font-size: 1.2rem;
+        color: #4B4B4B;
+      }
+
+      .subTitle {
+        font-size: 1.2rem;
+        font-weight: 300;
+        color: #4B4B4B;
+      }
+
+      .timeAt {
+        font-size: 1.1rem;
+        font-weight: 300;
+      }
+    }
+  }
+}

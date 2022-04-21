@@ -1,15 +1,14 @@
 import { FC, useState } from "react";
 import clsx from "clsx";
 
-import styles from "./Tenders.module.scss";
-import { Tender } from "../../models/tenderModel";
-import TenderTable from "../../components/tender/TenderTable";
+import styles from "./Index.module.scss";
+import TenderTable, { Tender } from "../../components/tender/TenderTable";
 import TenderSearch from "../../components/tender/TenderSearch";
 import TenderForm from "../../components/tender/TenderForm";
 import Pagination from "../../components/shared/Pagination";
 
 const Tenders: FC = () => {
-  const [tenderList] = useState(fakeData);
+  const [tenderList] = useState<Tender[]>(fakeData);
   const [currentPage, setCurrentPage] = useState(2);
 
   const handleChangePage = (page: number): void => {
@@ -18,16 +17,19 @@ const Tenders: FC = () => {
 
   return (
     <div className={clsx(styles.container)}>
-      <TenderSearch />
-      <div className={clsx(styles.sectionForm)}>
+      <h2 className={clsx(styles.title)}>THÔNG TIN ĐẤU THẦU</h2>
+      <div className={clsx(styles.searchSection)}>
+        <TenderSearch />
+      </div>
+      <div className={clsx(styles.formSection)}>
         <TenderForm />
       </div>
-      <div className={clsx(styles.sectionTable)}>
+      <div className={clsx(styles.tableSection)}>
         <div className={clsx(styles.pagination)}>
           <Pagination
             onClick={handleChangePage}
             currentPage={currentPage}
-            totalPage={10}
+            totalPage={4}
             currentResult={8}
             totalResult={101}
           />

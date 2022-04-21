@@ -1,0 +1,136 @@
+@import "../../assets/scss/variables";
+
+.filterSection,
+.tableSection {
+  background-color: $white;
+  border-radius: 7px;
+  display: flex;
+  padding: 0 13px;
+
+  .select {
+    border-bottom: 1px solid #f2f4f6;
+
+    select {
+      width: 24.9rem;
+    }
+  }
+}
+
+.filterSection {
+  height: 9rem;
+  margin-bottom: 10px;
+  align-items: center;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    height: 1px;
+    background-color: #f2f4f6;
+  }
+}
+
+.tableSection {
+  flex-direction: column;
+  overflow-x: auto;
+
+  .table {
+    th,
+    td {
+      &:first-child {
+        padding-left: 14px;
+      }
+      &:last-child {
+        padding-right: 14px;
+      }
+    }
+
+    .row,
+    td {
+      padding: 13px 0;
+
+      .productTextContainer {
+        width: 40rem;
+        display: flex;
+        gap: 13px;
+
+        .productImage {
+          width: 10.3rem;
+          height: 8.6rem;
+          border-radius: 7px;
+        }
+
+        .productText {
+          max-width: 19.5rem;
+
+          .productName {
+            color: #1c1d21;
+            font-size: 1.2rem;
+            line-height: 3.6rem;
+            font-weight: 700;
+          }
+
+          .productDescription {
+            color: #1c1d21;
+            font-size: 1.1rem;
+            line-height: 1.65rem;
+          }
+        }
+      }
+
+      .productQuantity,
+      .productUnit,
+      .productOtherRequirements {
+        font-size: 1.3rem;
+        color: $gray-2;
+        min-width: 10rem;
+      }
+
+      .productOtherRequirements  {
+        height: 100%;
+        width: 12rem;
+        display: inline-block;
+      }
+    }
+  }
+
+  .attachmentWrapper {
+    text-align: right;
+    margin: 35px 30px 30px 0;
+
+    .btnAttach {
+      position: relative;
+      background-color: #eff2fe;
+      width: 11.4rem;
+      height: 4.6rem;
+      padding: 0;
+      color: $linear;
+      font-weight: 500;
+      font-size: 1.3rem;
+      line-height: 1.8rem;
+
+      .iconBtn {
+        margin-right: 12px;
+      }
+
+      .numAttach {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        border-radius: 50%;
+        background-color: #e91616;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+      }
+    }
+  }
+}

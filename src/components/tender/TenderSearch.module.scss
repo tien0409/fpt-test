@@ -2,23 +2,14 @@
 
 $heightSection: 4.8rem;
 
-.title {
-  color: $gray-1;
-  font-weight: 700;
-  font-size: 2rem;
-  line-height: 2.7rem;
-}
-
 .btnGroup {
-  margin-top: 27px;
+  .buttonToggle {
+    font-size: 1.3rem !important;
+    border-radius: 7px;
 
-  button {
-    width: 133px;
-    padding-left: 0;
-    padding-right: 0;
-    font-size: 1.3rem;
-    font-weight: 500;
-    background-color: $bg-color;
+    &.default {
+      background-color: transparent !important;
+    }
 
     &:first-child {
       margin-right: 26px;
@@ -30,6 +21,12 @@ $heightSection: 4.8rem;
   margin-top: 25px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+
+  @media screen and (max-width: 48rem) {
+    grid-template-columns: repeat(1, 1fr);
+    column-gap: 0;
+  }
 
   .searchGroup {
     grid-column: span 8 / span 8;
@@ -79,6 +76,21 @@ $heightSection: 4.8rem;
         margin-right: 9px;
       }
     }
+
+
+    @media screen and (max-width: 48rem) {
+      flex-direction: column;
+      row-gap: 10px;
+
+      .searchInputGroup {
+        margin-right: 0;
+        width: 100%;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
   }
 
   .excelContainer {
@@ -93,6 +105,14 @@ $heightSection: 4.8rem;
       box-shadow: 0px 0px 10px #EEEEEE;
       border-radius: 4px;
     }
+
+    @media screen and (max-width: 48rem) {
+      grid-template-columns: repeat(1, 1fr);
+
+      button {
+        width: 100%;
+      }
+    };
   }
 }
 

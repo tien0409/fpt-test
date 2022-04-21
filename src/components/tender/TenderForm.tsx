@@ -2,8 +2,8 @@ import { ChangeEvent, FC, useState } from "react";
 import clsx from "clsx";
 
 import styles from "./TenderForm.module.scss";
-import InputField from "../base/InputField";
-import SelectField from "../base/SelectField";
+import InputField from "../shared/InputField";
+import SelectField from "../shared/SelectField";
 
 const TenderForm: FC = () => {
   const [id, setId] = useState("");
@@ -24,7 +24,7 @@ const TenderForm: FC = () => {
           onChange={(e: ChangeEvent<HTMLInputElement>) => setId(e.target.value)}
         />
         <SelectField
-          optionList={['Tất cả']}
+          optionList={["Tất cả"]}
           className={clsx(styles.input)}
           label="Người tạo kế hoạch"
           id="creator"
@@ -42,7 +42,7 @@ const TenderForm: FC = () => {
           }
         />
         <SelectField
-          optionList={['Tất cả']}
+          optionList={["Tất cả"]}
           className={clsx(styles.input)}
           label="Đơn vị đề nghị"
           id="company"
@@ -72,7 +72,9 @@ const TenderForm: FC = () => {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPackageName(e.target.value)
           }
-          onFocus={(e: ChangeEvent<HTMLInputElement>) =>  e.target.type = 'date' }
+          onFocus={(e: ChangeEvent<HTMLInputElement>) =>
+            (e.target.type = "date")
+          }
         />
       </div>
     </div>

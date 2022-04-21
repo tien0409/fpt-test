@@ -1,68 +1,67 @@
 @import "../../assets/scss/variables";
 
-.container {
-  width: 100%;
-  overflow-x: auto;
-  box-sizing: border-box;
+.table {
+  th,
+  td {
+    min-width: 20.1rem !important;
 
-  .wrapper {
-    display: inline-block;
-    min-width: 100%;
+    &:first-child {
+      padding-left: 68px;
+    }
+    &:last-child {
+      padding-right: 55px;
+    }
+  }
 
-    .table {
-      th,
-      td {
-        &:first-child {
-          padding-left: 68px;
-        }
-        &:last-child {
-          padding-right: 55px;
-        }
+
+  .row {
+    height: 8.8rem;
+    margin-bottom: 2px;
+
+    .columnValue {
+      color: $gray-1;
+      font-size: 1.3rem;
+      font-weight: 500;
+
+      &.id,
+      &.proposalCode {
+        color: $linear;
+        font-weight: 700;
       }
 
-      .row {
-        height: 8.8rem;
-        margin-bottom: 2px;
+      &.id {
+        text-decoration: underline;
+      }
 
-        .columnValue {
-          color: $gray-1;
-          font-size: 1.3rem;
-          font-weight: 500;
+      &.proposalCode {
+        line-height: 1.8rem;
+      }
 
-          &.id,
-          &.proposalCode {
-            color: $linear;
-            font-weight: 700;
-          }
+      &.expiredAt {
+        color: #1c1d21;
+      }
+    }
 
-          &.id {
-            text-decoration: underline;
-          }
+    .columnLabel {
+      color: $xam-nhat;
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-top: 5px;
 
-          &.proposalCode {
-            line-height: 1.8rem;
-          }
+      &.proposalCode,
+      &.expiredAt {
+        color: #8181a5;
+      }
+    }
 
-          &.expiredAt {
-            color: #1c1d21;
-          }
-        }
+    .button {
+      width: 14.5rem;
+      height: 3.8rem;
+      padding-left: 0;
+      padding-right: 0;
 
-        .columnLabel {
-          color: $xam-nhat;
-          font-size: 1.3rem;
-          font-weight: 500;
-          margin-top: 5px;
-
-          &.proposalCode,
-          &.expiredAt {
-            color: #8181a5;
-          }
-        }
-
-        .iconBtn {
-          margin-right: 8px;
-        }
+      .iconBtn {
+        margin-right: 8px;
       }
     }
   }

@@ -12,6 +12,7 @@ interface Props {
   icon?: string;
   iconPrefix?: boolean;
   value?: string;
+  checked?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -25,12 +26,17 @@ const InputField: FC<Props> = ({
   iconPrefix = false,
   icon,
   value,
+  checked,
   onChange,
-  onFocus
+  onFocus,
 }) => {
   return (
-    <div className={clsx( styles.container, className)}>
-      {label && <label className={clsx(styles.label)} htmlFor={id}>{label}</label>}
+    <div className={clsx(styles.container, className)}>
+      {label && (
+        <label className={clsx(styles.label)} htmlFor={id}>
+          {label}
+        </label>
+      )}
       <div className={clsx(styles.inputGroup)}>
         {icon && (
           <i
@@ -38,6 +44,7 @@ const InputField: FC<Props> = ({
           />
         )}
         <input
+          checked={checked}
           value={value}
           onChange={onChange}
           onFocus={onFocus}

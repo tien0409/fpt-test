@@ -1,0 +1,180 @@
+@import "../../assets/scss/variables";
+
+$sectionPaddingLeft: 28px;
+
+.suggestionSection,
+.stepSection,
+.chatSection {
+  background-color: $white;
+  border-radius: 7px;
+
+  .select {
+    padding: 0 $sectionPaddingLeft;
+    height: 4.6rem;
+    border-bottom: 1px solid #f2f4f6;
+
+    select {
+      width: 16rem;
+      color: $gray-1;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+  }
+}
+
+.suggestionSection {
+  .infoSuggested {
+    padding: 10px $sectionPaddingLeft 30px;
+
+    & > div {
+      margin-bottom: 16px;
+    }
+
+    .label {
+      color: $xam-nhat;
+      font-size: 1.2rem;
+    }
+
+    .value {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: $linear;
+      margin-top: 11px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      .avatar {
+        width: 4.5rem;
+        height: 4.5rem;
+        border-radius: 50%;
+      }
+
+      .fullName {
+        color: $gray-1;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.stepSection {
+  margin-top: 32px;
+
+  .select {
+    select {
+      width: 8.5rem;
+    }
+  }
+
+  .infoStep {
+    margin-top: 30px;
+    padding: 0 $sectionPaddingLeft;
+  }
+}
+
+.chatSection {
+  margin-top: 32px;
+
+  .select {
+    select {
+      width: 10rem;
+    }
+  }
+
+  .infoMessages {
+    margin: 35px 0;
+    padding: 0 $sectionPaddingLeft;
+    height: 30rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+    .messageItem {
+      margin-top: 14px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+
+      &.isMe {
+        flex-direction: row-reverse;
+
+        .messageText {
+          .content {
+            border-radius: 17px 17px 0px 17px;
+            background-color: $linear;
+            color: $white;
+          }
+
+          .sendAt {
+            text-align: right;
+          }
+        }
+      }
+
+      .userAvatar {
+        position: relative;
+        top: 6px;
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .messageText {
+        .content {
+          padding: 7px 15px;
+          border-radius: 18.5px 18.5px 18.5px 0px;
+          background-color: $light-bg;
+          font-size: 1.4rem;
+          line-height: 2.1rem;
+          color: #1c1d21;
+        }
+
+        .sendAt {
+          color: #8181a5;
+          font-size: 1.2rem;
+          line-height: 1.8rem;
+          font-weight: 700;
+          margin-top: 8px;
+        }
+      }
+    }
+  }
+
+  .formSendMessage {
+    height: 7.5rem;
+    background-color: #eff2fe;
+    display: flex;
+    align-items: center;
+
+    .inputSendMessage {
+      margin-top: 0;
+      height: 100%;
+      flex: 1;
+      padding: 0;
+      border: none;
+
+      input,
+      input::placeholder {
+        color: #8181a5;
+        font-size: 1.4rem;
+        line-height: 1.68rem;
+        font-weight: 700;
+      }
+
+      input {
+        background-color: #eff2fe;
+        height: 100%;
+        padding: 28px 5px 28px 25px;
+      }
+    }
+
+    .btnSendMessage {
+      height: 3.8rem;
+      width: 8.5rem;
+      border-radius: 8px;
+      margin-right: 26px;
+    }
+  }
+}

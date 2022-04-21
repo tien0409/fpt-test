@@ -1,8 +1,9 @@
 import { FC, useState } from "react";
 import clsx from "clsx";
-import TurnIcon from '../../assets/images/tune.svg'
 
+import TurnIcon from "../../assets/images/tune.svg";
 import styles from "./TenderSearch.module.scss";
+import Button from "../shared/Button";
 
 const TenderSearch: FC = () => {
   const [btnActived, setBtnActived] = useState<number>(1);
@@ -13,20 +14,27 @@ const TenderSearch: FC = () => {
 
   return (
     <div>
-      <h2 className={clsx(styles.title)}>THÔNG TIN ĐẤU THẦU</h2>
       <div className={clsx(styles.btnGroup)}>
-        <button
+        <Button
           onClick={() => changeBtnActived(1)}
-          className={clsx("btn", { btnPrimary: btnActived === 1 })}
+          variant={btnActived === 1 ? "primary" : ""}
+          size="small"
+          className={clsx(styles.buttonToggle, {
+            [styles.default]: btnActived !== 1,
+          })}
         >
           Hồ sơ mời thầu
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => changeBtnActived(2)}
-          className={clsx("btn", { btnPrimary: btnActived === 2 })}
+          variant={btnActived === 2 ? "primary" : ""}
+          className={clsx(styles.buttonToggle, {
+            [styles.default]: btnActived !== 2,
+          })}
+          size="small"
         >
           Thông tin đấu thầu
-        </button>
+        </Button>
       </div>
       <div className={clsx(styles.searchContainer)}>
         <div className={clsx(styles.searchGroup)}>
@@ -34,13 +42,13 @@ const TenderSearch: FC = () => {
             <i className="fas fa-search" />
             <input type="text" placeholder="Tìm kiếm theo số HSMT" />
           </div>
-          <button className="btn btnPrimary">
+          <Button variant="primary">
             <img src={TurnIcon} alt="turn icon" />
             <span>Bộ lọc</span>
-          </button>
+          </Button>
         </div>
         <div className={clsx(styles.excelContainer)}>
-          <button className="btn">Xuất excel</button>
+          <Button>Xuất excel</Button>
         </div>
       </div>
     </div>
