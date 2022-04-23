@@ -1,0 +1,11 @@
+export enum ActionType {
+  "CHANGE_PAGE",
+  "TOGGLE_MODAL",
+  "ADD_TENDER",
+  "REMOVE_TENDER",
+  "SAVE_EDIT_TENDER",
+  "EDITING_TENDER",
+  "ENABLE_EDIT",
+  "CANCEL_EDIT",
+}
+

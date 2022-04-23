@@ -1,0 +1,8 @@
+@import "../../assets/scss/variables";
+
+.form {
+ & > div {
+    margin-bottom: 20px;
+    padding-bottom: 0;
+  }
+}

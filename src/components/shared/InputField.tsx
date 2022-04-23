@@ -12,6 +12,7 @@ interface Props {
   icon?: string;
   iconPrefix?: boolean;
   value?: string;
+  name?: string;
   checked?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -26,6 +27,7 @@ const InputField: FC<Props> = ({
   iconPrefix = false,
   icon,
   value,
+  name,
   checked,
   onChange,
   onFocus,
@@ -46,6 +48,7 @@ const InputField: FC<Props> = ({
         <input
           checked={checked}
           value={value}
+          name={name}
           onChange={onChange}
           onFocus={onFocus}
           className={clsx({ [styles.prefix]: iconPrefix })}

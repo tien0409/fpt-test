@@ -1,26 +1,43 @@
-import { FC } from "react";
-import { Link } from "react-router-dom";
 import clsx from "clsx";
-
-import styles from "./TenderTable.module.scss";
+import { FC, memo } from "react";
+import { Link } from "react-router-dom";
+import { Tender } from "../../pages/tenders";
+import { InputTenderSelected } from "../../pages/tenders/actions";
 import Button from "../shared/Button";
+import EditableCell from "../shared/EditableCell";
 import Table from "../shared/Table";
+import styles from "./TenderTable.module.scss";
 
-export interface Tender {
-  id: string;
-  creatorName: string;
-  creatorEmail: string;
-  proposalCode: string;
-  company: string;
-  packageName: string;
-  expiredAt: string;
-}
 
 interface Props {
   tenderList: Tender[];
+  tendersEditing: Tender[];
+  onRemove: (tenderId: string) => void;
+  onSave: (tenderId: string) => void;
+  onEditing: (inputTender: InputTenderSelected) => void;
+  onEnableEdit: (tender: Tender) => void;
+  onCancelEdit: (tender: Tender) => void;
 }
 
-const TenderTable: FC<Props> = ({ tenderList }) => {
+const TenderTable: FC<Props> = ({
+  tenderList,
+  tendersEditing,
+  onRemove,
+  onSave,
+  onEditing,
+  onEnableEdit,
+  onCancelEdit,
+}) => {
+  const handleRemove = (tenderId: string) => {
+    if (window.confirm("Are your sure ?")) {
+      onRemove(tenderId);
+    }
+  };
+
+  const isEditing = (tenderId: string): boolean => {
+    return !!tendersEditing.find((tender) => tender.id === tenderId);
+  };
+
   return (
     <Table className={clsx(styles.table)}>
       <thead>
@@ -47,42 +64,123 @@ const TenderTable: FC<Props> = ({ tenderList }) => {
               <div className={styles.columnLabel}>Hồ sơ mời thầu</div>
             </td>
             <td>
-              <div className={clsx(styles.columnValue)}>
-                {tender.creatorName}
-              </div>
-              <div className={styles.columnLabel}>{tender.creatorEmail}</div>
+              <EditableCell
+                className={clsx(styles.columnValue)}
+                initValue={tender.creatorName}
+                editing={isEditing(tender.id)}
+                onChangeValue={(value) =>
+                  onEditing({ name: "creatorName", value, tenderId: tender.id })
+                }
+              />
+              <EditableCell
+                className={clsx(styles.columnValue)}
+                initValue={tender.creatorEmail}
+                editing={isEditing(tender.id)}
+                onChangeValue={(value) =>
+                  onEditing({
+                    name: "creatorEmail",
+                    value,
+                    tenderId: tender.id,
+                  })
+                }
+              />
             </td>
             <td>
-              <div className={clsx(styles.columnValue, styles.proposalCode)}>
-                {tender.proposalCode}
-              </div>
+              <EditableCell
+                className={clsx(styles.columnLabel, styles.proposalCode)}
+                initValue={tender.proposalCode}
+                editing={isEditing(tender.id)}
+                onChangeValue={(value) =>
+                  onEditing({
+                    name: "proposalCode",
+                    value,
+                    tenderId: tender.id,
+                  })
+                }
+              />
               <div className={clsx(styles.columnLabel, styles.proposalCode)}>
                 Mã đề nghị
               </div>
             </td>
             <td>
-              <div className={clsx(styles.columnValue)}>{tender.company}</div>
+              <EditableCell
+                className={clsx(styles.columnValue)}
+                initValue={tender.company}
+                editing={isEditing(tender.id)}
+                onChangeValue={(value) =>
+                  onEditing({ name: "company", value, tenderId: tender.id })
+                }
+              />
               <div className={clsx(styles.columnLabel)}>Đơn vị</div>
             </td>
             <td>
-              <div className={clsx(styles.columnValue)}>
-                {tender.packageName}
-              </div>
+              <EditableCell
+                className={clsx(styles.columnValue)}
+                initValue={tender.packageName}
+                editing={isEditing(tender.id)}
+                onChangeValue={(value) =>
+                  onEditing({ name: "packageName", value, tenderId: tender.id })
+                }
+              />
               <div className={clsx(styles.columnLabel)}>Tên gói thầu</div>
             </td>
             <td>
-              <div className={clsx(styles.columnValue, styles.expiredAt)}>
-                {tender.expiredAt}
-              </div>
+              <EditableCell
+                inputType="date"
+                className={clsx(styles.columnValue, styles.expiredAt)}
+                initValue={tender.expiredAt}
+                editing={isEditing(tender.id)}
+                onChangeValue={(value) =>
+                  onEditing({ name: "expiredAt", value, tenderId: tender.id })
+                }
+              />
               <div className={clsx(styles.columnLabel, styles.expiredAt)}>
                 Thời gian kết thúc
               </div>
             </td>
             <td>
-              <Button variant="primary" className={clsx(styles.button)}>
-                <i className={clsx("fas fa-plus", styles.iconBtn)} />
-                <span>Phát hành</span>
-              </Button>
+              <div className={clsx(styles.buttonGroup)}>
+                <Button variant="primary" className={clsx(styles.button)}>
+                  <i className={clsx("fas fa-plus", styles.iconBtn)} />
+                  <span>Phát hành</span>
+                </Button>
+
+                {isEditing(tender.id) ? (
+                  <div className={clsx(styles.buttonGroup)}>
+                    <Button
+                      onClick={() => onSave(tender.id)}
+                      className={clsx(styles.button)}
+                      variant="success"
+                    >
+                      Save
+                    </Button>
+                    <Button
+                      onClick={() => onCancelEdit(tender)}
+                      className={clsx(styles.button)}
+                      variant="cancel"
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                ) : (
+                  <div className={clsx(styles.buttonGroup)}>
+                    <Button
+                      onClick={() => onEnableEdit(tender)}
+                      className={clsx(styles.button)}
+                      variant="warning"
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      onClick={() => handleRemove(tender.id)}
+                      className={clsx(styles.button)}
+                      variant="danger"
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                )}
+              </div>
             </td>
           </tr>
         ))}
@@ -91,4 +189,4 @@ const TenderTable: FC<Props> = ({ tenderList }) => {
   );
 };
 
-export default TenderTable;
+export default memo(TenderTable);
