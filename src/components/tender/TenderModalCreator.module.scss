@@ -1,0 +1,24 @@
+@import "../../assets/scss/variables";
+
+.container {
+  .buttonGroup {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .table {
+    table {
+      border-spacing: 15px;
+    }
+
+    .row {
+      font-size: 1.4rem;
+
+      .input {
+        padding-bottom: 0;
+        border: none;
+      }
+    }
+  }
+}

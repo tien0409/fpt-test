@@ -27,10 +27,11 @@
     margin-top: 20px;
     padding: $padding 0;
 
-    .addBtn {
-      margin-left: auto;
-      display: block;
-      margin-right: $margin;
+    .btnGroup {
+      display: flex;
+      gap: 15px;
+      justify-content: flex-end;
+      margin-bottom: 10px;
     }
 
     .pagination {

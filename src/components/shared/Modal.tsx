@@ -5,17 +5,18 @@ import styles from "./Modal.module.scss";
 
 interface Props {
   children: ReactNode;
-  onClose: () => void
+  onClose: () => void;
+  className?: string;
 }
 
-const Modal: FC<Props> = ({ children, onClose }) => {
+const Modal: FC<Props> = ({ children, className, onClose }) => {
   const handleClickOutside = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    onClose()
+    onClose();
   };
 
   return (
-    <div className={clsx(styles.container)}>
+    <div className={clsx(styles.container, className)}>
       <div onClick={handleClickOutside} className={clsx(styles.overlay)} />
       <div className={clsx(styles.body)}>{children}</div>
     </div>

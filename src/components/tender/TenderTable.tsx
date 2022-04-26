@@ -1,13 +1,13 @@
 import clsx from "clsx";
-import { FC, memo } from "react";
+import { ChangeEvent, FC, memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tender } from "../../pages/tenders";
 import { InputTenderSelected } from "../../pages/tenders/actions";
 import Button from "../shared/Button";
 import EditableCell from "../shared/EditableCell";
+import InputField from "../shared/InputField";
 import Table from "../shared/Table";
 import styles from "./TenderTable.module.scss";
-
 
 interface Props {
   tenderList: Tender[];
@@ -17,7 +17,12 @@ interface Props {
   onEditing: (inputTender: InputTenderSelected) => void;
   onEnableEdit: (tender: Tender) => void;
   onCancelEdit: (tender: Tender) => void;
+  onFilter: (filters: TenderFilter) => void;
 }
+
+export type TenderFilter = {
+  [key in keyof Tender as string]?: string;
+};
 
 const TenderTable: FC<Props> = ({
   tenderList,
@@ -27,12 +32,30 @@ const TenderTable: FC<Props> = ({
   onEditing,
   onEnableEdit,
   onCancelEdit,
+  onFilter,
 }) => {
+  const [filters, setFilters] = useState<TenderFilter>({ // require sorted keys same Tende interface
+    id: "",
+    creatorName: "",
+    proposalCode: "",
+    company: "",
+    packageName: "",
+  });
+
   const handleRemove = (tenderId: string) => {
     if (window.confirm("Are your sure ?")) {
       onRemove(tenderId);
     }
   };
+
+  const handleChangeFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFilters((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  useEffect(() => {
+    onFilter(filters);
+  }, [filters, onFilter]);
 
   const isEditing = (tenderId: string): boolean => {
     return !!tendersEditing.find((tender) => tender.id === tenderId);
@@ -49,6 +72,17 @@ const TenderTable: FC<Props> = ({
           <th>Gói thầu</th>
           <th>Thời gian kết thúc</th>
           <th></th>
+        </tr>
+        <tr className={clsx(styles.headFilter)}>
+          {Object.keys(filters).map((filter) => (
+            <th key={filter}>
+              <InputField
+                onChange={(e) => handleChangeFilter(e)}
+                value={filters[filter]}
+                name={filter}
+              />
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>

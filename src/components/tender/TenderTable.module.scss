@@ -13,6 +13,19 @@
     }
   }
 
+  .headFilter {
+    th {
+      div {
+        width: 80%;
+        padding-bottom: 3px;
+
+        input {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+
   .row {
     height: 8.8rem;
     margin-bottom: 2px;

@@ -1,4 +1,5 @@
 import { Tender } from ".";
+import { TenderFilter } from "../../components/tender/TenderTable";
 import { ActionType } from "./constants";
 
 export type Action = {
@@ -40,12 +41,34 @@ export const toggleModal = (): Action => ({
   type: ActionType.TOGGLE_MODAL,
 });
 
+export const toggleModalCreator = (): Action => ({
+  type: ActionType.TOGGLE_MODAL_CREATOR,
+});
+
 export const addTender = (tender: Tender): Action => ({
   type: ActionType.ADD_TENDER,
   payload: tender,
 });
 
-export const removeTender = (tenderId: number | string): Action => ({
+export const removeTender = (tenderId: string): Action => ({
   type: ActionType.REMOVE_TENDER,
   payload: tenderId,
+});
+
+export const filterTender = (filters: TenderFilter): Action => ({
+  type: ActionType.FILTER,
+  payload: filters,
+});
+
+export const checkCreator = (creatorId: string): Action => ({
+  type: ActionType.CHECK_CREATOR,
+  payload: creatorId,
+});
+
+export const cancelCheckCreator = (): Action => ({
+  type: ActionType.CANCLE_CHECK_CREATOR,
+});
+
+export const createTenderWithCreator = (): Action => ({
+  type: ActionType.CREATE_TENDER_WITH_CREATOR,
 });

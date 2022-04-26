@@ -21,6 +21,8 @@
   }
 
   .body {
+    max-height: 80%;
+    overflow-y: auto;
     background-color: $white;
     padding: 32px;
     border-radius: 5px;
