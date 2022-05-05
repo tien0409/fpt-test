@@ -3,7 +3,6 @@ import {
   RefObject,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -26,43 +25,38 @@ const DisplayMap: FC = () => {
   const [points, setPoints] = useState<H.geo.IPoint[]>([]);
   const [isDrawing, setIsDrawing] = useState(false); // false: end, true: start
 
-  useMemo(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
+  const initMap = useCallback((lat: number, lng: number) => {
+    if (mapRef.current) {
+      const platform = new H.service.Platform({
+        apikey: "pnYh4cMYuMq1VQ6Dn7Af1yz-L5GP1Bt1t9LYvMZAZIs",
+      });
+      const layers = platform.createDefaultLayers();
+      const mapObj = new H.Map(mapRef.current, layers.vector.normal.map, {
+        pixelRatio: window.devicePixelRatio,
+        center: { lat, lng },
+        zoom: 5,
+      });
+      mapObj.addLayer(
+        new H.map.layer.CanvasLayer(function (
+          ctx: CanvasRenderingContext2D | WebGLRenderingContext,
+          renderingParams
+        ) {
+          if (ctx instanceof WebGLRenderingContext)
+            return H.map.render.RenderState.PENDING;
 
-      if (mapRef.current) {
-        const platform = new H.service.Platform({
-          apikey: "pnYh4cMYuMq1VQ6Dn7Af1yz-L5GP1Bt1t9LYvMZAZIs",
-        });
-        const layers = platform.createDefaultLayers();
-        const mapObj = new H.Map(mapRef.current, layers.vector.normal.map, {
-          pixelRatio: window.devicePixelRatio,
-          center: { lat, lng },
-          zoom: 5,
-        });
-        mapObj.addLayer(
-          new H.map.layer.CanvasLayer(function (
-            ctx: CanvasRenderingContext2D | WebGLRenderingContext,
-            renderingParams
-          ) {
-            if (ctx instanceof WebGLRenderingContext)
-              return H.map.render.RenderState.PENDING;
+          setCtx(ctx);
+          setRenderingParams(renderingParams);
+          return H.map.render.RenderState.DONE;
+        })
+      );
+      const behavior = new H.mapevents.Behavior(
+        new H.mapevents.MapEvents(mapObj)
+      );
+      behavior.disable(H.mapevents.Behavior.Feature.DBL_TAP_ZOOM);
+      H.ui.UI.createDefault(mapObj, layers);
 
-            setCtx(ctx);
-            setRenderingParams(renderingParams);
-            return H.map.render.RenderState.DONE;
-          })
-        );
-        const behavior = new H.mapevents.Behavior(
-          new H.mapevents.MapEvents(mapObj)
-        );
-        behavior.disable(H.mapevents.Behavior.Feature.DBL_TAP_ZOOM);
-        H.ui.UI.createDefault(mapObj, layers);
-
-        setMap(mapObj);
-      }
-    });
+      setMap(mapObj);
+    }
   }, []);
 
   const handleEndDraw = useCallback(() => {
@@ -168,6 +162,18 @@ const DisplayMap: FC = () => {
     },
     [ctx, isDrawing, map, points, renderingParams]
   );
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        initMap(lat, lng);
+      });
+    } else {
+      initMap(0, 0);
+    }
+  }, [initMap]);
 
   useEffect(() => {
     if (map) {
