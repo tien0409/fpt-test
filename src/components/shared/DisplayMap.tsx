@@ -1,5 +1,6 @@
 import {
   FC,
+  MouseEvent,
   RefObject,
   useCallback,
   useEffect,
@@ -82,86 +83,81 @@ const DisplayMap: FC = () => {
     }
   }, [ctx, lineString, map, renderingParams]);
 
-  const handleToggleDraw = useCallback(
-    (e: any) => {
-      const { viewportX, viewportY } = e.currentPointer;
-      const coord = map?.screenToGeo(viewportX, viewportY);
-      if (points[0]) {
-        const lastPointCoord = map?.geoToScreen(points[0]);
-        if (
-          Math.abs((lastPointCoord?.x || 0) - viewportX) <= MARKER_SIZE / 2 &&
-          Math.abs((lastPointCoord?.y || 0) - viewportY) <= MARKER_SIZE / 2
-        ) {
-          handleEndDraw();
-          lineString.pushPoint(points[0]);
-          map?.addObject(
-            new H.map.Polyline(lineString, {
-              style: { lineWidth: 4 },
-            } as any)
-          );
-          return;
-        }
-      }
-      const pos: H.geo.IPoint = {
-        lat: coord?.lat ?? 0,
-        lng: coord?.lng ?? 0,
-      };
-
-      lineString.pushPoint(pos);
-      setPoints([...points, pos]);
-
-      // danh dau diem
-      const markerEl = document.createElement("div");
-      markerEl.style.cursor = "pointer";
-      markerEl.style.width = `${MARKER_SIZE}px`;
-      markerEl.style.height = `${MARKER_SIZE}px`;
-      markerEl.style.marginTop = `-${MARKER_SIZE / 2}px`;
-      markerEl.style.marginLeft = `-${MARKER_SIZE / 2}px`;
-      markerEl.style.position = "relative";
-      markerEl.style.userSelect = "none";
-      markerEl.style.borderRadius = "50%";
-      markerEl.style.backgroundColor = "transparent";
-      const domIcon = new H.map.DomIcon(markerEl);
-      const markerObj = new H.map.DomMarker(pos, {
-        icon: domIcon,
-      } as H.map.DomMarker.Options);
-      map?.addObject(markerObj);
-
-      if (!isDrawing) {
-        setIsDrawing(true);
-      } else {
+  const handleToggleDraw = (e: MouseEvent<HTMLDivElement>) => {
+    const { clientX: viewportX, clientY: viewportY } = e;
+    const coord = map?.screenToGeo(viewportX, viewportY);
+    if (points[0]) {
+      const lastPointCoord = map?.geoToScreen(points[0]);
+      if (
+        Math.abs((lastPointCoord?.x || 0) - viewportX) <= MARKER_SIZE / 2 &&
+        Math.abs((lastPointCoord?.y || 0) - viewportY) <= MARKER_SIZE / 2
+      ) {
+        handleEndDraw();
+        lineString.pushPoint(points[0]);
         map?.addObject(
           new H.map.Polyline(lineString, {
             style: { lineWidth: 4 },
           } as any)
         );
+        return;
       }
-    },
-    [handleEndDraw, isDrawing, lineString, map, points]
-  );
+    }
+    const pos: H.geo.IPoint = {
+      lat: coord?.lat ?? 0,
+      lng: coord?.lng ?? 0,
+    };
 
-  const handlePreviewDraw = useCallback(
-    (e: any) => {
-      if (!isDrawing) return;
+    lineString.pushPoint(pos);
+    setPoints([...points, pos]);
 
-      if (ctx && renderingParams) {
-        ctx.clearRect(0, 0, renderingParams.size.w, renderingParams.size.h);
-        const lastPos = map?.geoToScreen({
-          lat: points.at(-1)?.lat || 0,
-          lng: points.at(-1)?.lng || 0,
-        });
-        if (lastPos) {
-          ctx.strokeStyle = "red";
-          ctx.lineWidth = 4;
-          ctx.beginPath();
-          ctx.moveTo(lastPos.x, lastPos.y);
-          ctx.lineTo(e.currentPointer.viewportX, e.currentPointer.viewportY);
-          ctx.stroke();
-        }
+    // danh dau diem
+    const markerEl = document.createElement("div");
+    markerEl.style.cursor = "pointer";
+    markerEl.style.width = `${MARKER_SIZE}px`;
+    markerEl.style.height = `${MARKER_SIZE}px`;
+    markerEl.style.marginTop = `-${MARKER_SIZE / 2}px`;
+    markerEl.style.marginLeft = `-${MARKER_SIZE / 2}px`;
+    markerEl.style.position = "relative";
+    markerEl.style.userSelect = "none";
+    markerEl.style.borderRadius = "50%";
+    markerEl.style.backgroundColor = "transparent";
+    const domIcon = new H.map.DomIcon(markerEl);
+    const markerObj = new H.map.DomMarker(pos, {
+      icon: domIcon,
+    } as H.map.DomMarker.Options);
+    map?.addObject(markerObj);
+
+    if (!isDrawing) {
+      setIsDrawing(true);
+    } else {
+      map?.addObject(
+        new H.map.Polyline(lineString, {
+          style: { lineWidth: 4 },
+        } as any)
+      );
+    }
+  };
+
+  const handlePreviewDraw = (e: MouseEvent<HTMLDivElement>) => {
+    if (!isDrawing) return;
+
+    const { clientX: viewportX, clientY: viewportY } = e;
+    if (ctx && renderingParams) {
+      ctx.clearRect(0, 0, renderingParams.size.w, renderingParams.size.h);
+      const lastPos = map?.geoToScreen({
+        lat: points.at(-1)?.lat || 0,
+        lng: points.at(-1)?.lng || 0,
+      });
+      if (lastPos) {
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(lastPos.x, lastPos.y);
+        ctx.lineTo(viewportX, viewportY);
+        ctx.stroke();
       }
-    },
-    [ctx, isDrawing, map, points, renderingParams]
-  );
+    }
+  };
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -175,23 +171,11 @@ const DisplayMap: FC = () => {
     }
   }, [initMap]);
 
-  useEffect(() => {
-    if (map) {
-      map.addEventListener("tap", handleToggleDraw);
-      map.addEventListener("pointermove", handlePreviewDraw);
-    }
-
-    return () => {
-      if (map) {
-        map.removeEventListener("tap", handleToggleDraw);
-        map.removeEventListener("pointermove", handlePreviewDraw);
-      }
-    };
-  }, [map, handlePreviewDraw, handleToggleDraw]);
-
   return (
     <div
+      onClick={handleToggleDraw}
       onDoubleClick={handleEndDraw}
+      onMouseMove={handlePreviewDraw}
       className={clsx(styles.container)}
       ref={mapRef as RefObject<HTMLDivElement>}
     ></div>
